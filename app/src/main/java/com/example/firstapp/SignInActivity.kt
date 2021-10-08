@@ -27,18 +27,18 @@ class SignInActivity : AppCompatActivity() {
             val log = MyRetrofit().getRetrofit()
             val getApi = log.create(Api::class.java)
             val hashMap: HashMap<String, String> = HashMap<String, String>()
-            hashMap.put("email", email.text.toString())
-            hashMap.put("password", password.text.toString())
-            val log_call:retrofit2.Call<Login> = getApi.getAuth(hashMap)
-            log_call.enqueue(object : retrofit2.Callback<Login>{
-                override fun onResponse(call: Call<Login>, response: Response<Login>){
+            hashMap["email"] = email.text.toString()
+            hashMap["password"] = password.text.toString()
+            val log_call:retrofit2.Call<Void> = getApi.getAuth(hashMap)
+            log_call.enqueue(object : retrofit2.Callback<Void>{
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful){
                         val intent = Intent(this@SignInActivity, MenuActivity::class.java)
                         startActivity(intent)
                     }
                 }
 
-                override fun onFailure(call: Call<Login>, t: Throwable){
+                override fun onFailure(call: Call<Void>, t: Throwable) {
                     Toast.makeText(this@SignInActivity, t.message, Toast.LENGTH_SHORT).show()
                 }
             })

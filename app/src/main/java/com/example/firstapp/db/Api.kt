@@ -6,7 +6,7 @@ import retrofit2.http.POST
 
 interface Api {
     @POST("/user/login")
-    fun getAuth(@Body hashMap: HashMap<String,String>): Call<Login>
+    fun getAuth(@Body hashMap: HashMap<String,String>): Call<Void>
 
     @GET("feelings")
     fun getFeel():Call<Feelings>
